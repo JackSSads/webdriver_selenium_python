@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from os import environ, name, path
+from typing import Union, List
 from random import randint
 from time import sleep
 
@@ -31,7 +32,7 @@ class Driver():
 
     """ Métodos do WebDriver:
         - .get("https://...")               - Navegar até uma página
-        - .maximize_window()                - Maximiza a janela
+        - .maximize_windo()                 - Maximiza a janela
         - .refresh()                        - Recarrega a página atual
         - .get(driver.current)              - Recarrega a página atual
         - .back()                           - Volta à página anterior
@@ -53,7 +54,7 @@ class Driver():
         self.__chrome_options = Options()
         self.__wait = None
 
-    def initialize_wedriver(self) -> None:
+    def initialize_webdriver(self) -> None:
         try:
             for argument in self.arguments:
                 self.__chrome_options.add_argument(argument)
@@ -182,7 +183,7 @@ class Driver():
         except Exception as e:
             print(f"Erro ao tentar rolar a tela: {e}")
 
-    def waiting(self, search: str, ec: EC = EC.visibility_of_element_located, get_by: By = By.XPATH,) -> WebElement:
+    def waiting(self, search: str, ec: EC = EC.visibility_of_element_located, get_by: By = By.XPATH,) -> Union[WebElement, List[WebElement]]:
         try:
             return self.__wait.until(
                 ec((get_by, search))
