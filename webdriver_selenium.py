@@ -177,9 +177,9 @@ class Driver():
         except Exception as e:
             print(f"Erro ao tentar escrever: {e}")
 
-    def scroll(self, value: str) -> None:
+   def scroll(self, value: str, wc: str = "window.scrollTo") -> None:
         try:
-            self.__driver.execute_script(f"window.scrollTo(0, {value});")
+            self.__driver.execute_script(f"{wc}(0, {value});")
         except Exception as e:
             print(f"Erro ao tentar rolar a tela: {e}")
 
