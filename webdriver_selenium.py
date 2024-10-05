@@ -31,7 +31,7 @@ class Driver():
 
     """ Métodos do WebDriver:
         - .get("https://...")               - Navegar até uma página
-        - .maximize_windo()                 - Maximiza a janela
+        - .maximize_window()                - Maximiza a janela
         - .refresh()                        - Recarrega a página atual
         - .get(driver.current)              - Recarrega a página atual
         - .back()                           - Volta à página anterior
