@@ -177,7 +177,7 @@ class Driver():
         except Exception as e:
             print(f"Erro ao tentar escrever: {e}")
 
-   def scroll(self, value: str, ws: str = "scrollTo") -> None:
+    def scroll(self, value: str, ws: str = "scrollTo") -> None:
         try:
             self.__driver.execute_script(f"window.{ws}(0, {value});")
         except Exception as e:
@@ -220,3 +220,24 @@ class Driver():
             self.__driver.switch_to.alert
         except Exception as e:
             print(f"Erro ao tentar capturar alerta: {e}")
+
+    def current_page(self) -> str:
+        try:
+            return self.__driver.current_window_handle
+        except Exception as e:
+            print(f"Erro ao tentar buscar janela atual: {str(e)}")
+            return f"Erro ao tentar buscar janela atual: {str(e)}"
+        
+    def window_handles(self) -> str:
+        try:
+            return self.__driver.window_handles
+        except Exception as e:
+            print(f"Erro ao tentar buscar janelas abertas: {str(e)}")
+            return f"Erro ao tentar buscar janelas abertas: {str(e)}"
+    
+    def switch_to(self, aba: str) -> None:
+        try:
+            return self.__driver.switch_to.window(aba)
+        except Exception as e:
+            print(f"Erro ao tentar buscar janelas abertas: {str(e)}")
+            return f"Erro ao tentar buscar janelas abertas: {str(e)}"
