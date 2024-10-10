@@ -4,14 +4,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webelement import WebElement
 
-from selenium.common.exceptions import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException
 
-from os import environ, name, path
-from typing import Union, List
-from random import randint
 from time import sleep
+from random import randint
+from typing import Union, List
+from os import environ, name, path
 
 class Driver():
     """ Fonte de opções de switches
@@ -115,49 +115,49 @@ class Driver():
         except Exception as e:
             print(f"Erro ao tentar navegar para {url}: {e}")
 
-    def get_by_id(self, id: str) -> WebElement:
+    def get_by_id(self, id: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.ID, id)
         except Exception as e:
             print(f"Erro ao tentar achar o elemento com ID: {e}")
 
-    def get_by_name(self, name: str) -> WebElement:
+    def get_by_name(self, name: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.NAME, name)
         except Exception as e:
             print(f"Erro ao tentar achar o elemento com NAME: {e}")
 
-    def get_by_class_name(self, class_name: str) -> WebElement:
+    def get_by_class_name(self, class_name: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.CLASS_NAME, class_name)
         except Exception as e:
             print(f"Erro ao tentar achar o elemento com CLASS_NAME: {e}")
 
-    def get_by_link_text(self, text: str) -> WebElement:
+    def get_by_link_text(self, text: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.LINK_TEXT, text)
         except Exception as e:
             print(f"Erro ao tentar achar o elemento com LINK_TEXT: {e}")
 
-    def get_by_partial_link_text(self, partial_text: str) -> WebElement:
+    def get_by_partial_link_text(self, partial_text: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.PARTIAL_LINK_TEXT, partial_text)
         except Exception as e:
             print(f"Erro ao tentar achar o elemento com PARTIAL_LINK_TEXT: {e}")
 
-    def get_by_tag_name(self, tag_name: str) -> WebElement:
+    def get_by_tag_name(self, tag_name: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.TAG_NAME, tag_name)
         except Exception as e:
             print(f"Erro ao tentar achar o elemento com TAG_NAME: {e}")
 
-    def get_by_xpath(self, xpath: str) -> WebElement:
+    def get_by_xpath(self, xpath: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.XPATH, xpath)
         except Exception as e:
             print(f"Erro ao tentar achar o elemento com XPATH: {e}")
     
-    def get_by_css_selector(self, css_selector: str) -> WebElement:
+    def get_by_css_selector(self, css_selector: str) -> Union[WebElement, None]:
         try:
             return self.__driver.find_element(By.CSS_SELECTOR, css_selector)
         except Exception as e:
@@ -183,7 +183,7 @@ class Driver():
         except Exception as e:
             print(f"Erro ao tentar rolar a tela: {e}")
 
-    def waiting(self, search: str, ec: EC = EC.visibility_of_element_located, get_by: By = By.XPATH,) -> Union[WebElement, List[WebElement]]:
+    def waiting(self, search: str, ec: EC = EC.visibility_of_element_located, get_by: By = By.XPATH,) -> Union[WebElement, List[WebElement], None]:
         try:
             return self.__wait.until(
                 ec((get_by, search))
@@ -193,7 +193,7 @@ class Driver():
 
     def print(self, filename: str) -> None:
         try:
-            return self.__driver.save_screenshot(filename)
+            self.__driver.save_screenshot(filename)
         except Exception as e:
             print(f"Erro ao realizar captura da tela: {e}")
 
@@ -221,23 +221,20 @@ class Driver():
         except Exception as e:
             print(f"Erro ao tentar capturar alerta: {e}")
 
-    def current_page(self) -> str:
+    def current_page(self) -> Union[str, None]:
         try:
             return self.__driver.current_window_handle
         except Exception as e:
             print(f"Erro ao tentar buscar janela atual: {str(e)}")
-            return f"Erro ao tentar buscar janela atual: {str(e)}"
         
-    def window_handles(self) -> str:
+    def window_handles(self) -> Union[str, None]:
         try:
             return self.__driver.window_handles
         except Exception as e:
             print(f"Erro ao tentar buscar janelas abertas: {str(e)}")
-            return f"Erro ao tentar buscar janelas abertas: {str(e)}"
     
     def switch_to(self, aba: str) -> None:
         try:
-            return self.__driver.switch_to.window(aba)
+            self.__driver.switch_to.window(aba)
         except Exception as e:
             print(f"Erro ao tentar buscar janelas abertas: {str(e)}")
-            return f"Erro ao tentar buscar janelas abertas: {str(e)}"
