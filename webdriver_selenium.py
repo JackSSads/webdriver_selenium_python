@@ -49,10 +49,10 @@ class Driver():
     """
 
     def __init__(self, arguments: list = ['--window-size=900,900',]) -> None:
-        self.arguments = arguments
-        self.__driver = None
-        self.__chrome_options = Options()
-        self.__wait = None
+        self.arguments: list = arguments
+        self.__driver: webdriver | None = None
+        self.__wait: WebDriverWait | None = None
+        self.__chrome_options: Options = Options()
 
     def initialize_webdriver(self) -> None:
         try:
@@ -61,10 +61,10 @@ class Driver():
 
             # Para sistemas Windows
             if name == 'nt':
-                downloads_folder = path.join(environ['USERPROFILE'], 'Downloads')
+                downloads_folder: str = path.join(environ['USERPROFILE'], 'Downloads')
             # Para sistemas Unix (Linux, macOS)
             else:
-                downloads_folder = path.join(environ['HOME'], 'Downloads')
+                downloads_folder: str = path.join(environ['HOME'], 'Downloads')
 
             """
                 Lista de opções experimentais(nem todas estão documentadas)
