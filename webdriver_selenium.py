@@ -10,8 +10,8 @@ from selenium.common.exceptions import NoSuchElementException, ElementNotVisible
 
 from time import sleep
 from random import randint
-from typing import Union, List
 from os import environ, name, path
+from typing import Union, List, Optional
 
 class Driver():
     """ Fonte de opções de switches
@@ -48,11 +48,11 @@ class Driver():
         - .close()                          - Fecha o navegador
     """
 
-    def __init__(self, arguments: list = ['--window-size=900,900',]) -> None:
-        self.arguments: list = arguments
-        self.__driver: webdriver | None = None
-        self.__wait: WebDriverWait | None = None
+    def __init__(self, arguments: Optional[List[str]] = None) -> None:
+        self.__driver: Optional[webdriver] = None
         self.__chrome_options: Options = Options()
+        self.__wait: Optional[WebDriverWait] = None
+        self.arguments: List[str] = arguments if arguments is not None else ['--window-size=900,900']
 
     def initialize_webdriver(self) -> None:
         try:
