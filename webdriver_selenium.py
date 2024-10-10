@@ -21,13 +21,13 @@ class Driver():
     """
 
     """ Manipulação da janela:
-        --start-maximized # Inicia maximizado
-        --lang=pt-BR # Define o idioma de inicialização, # en-US , pt-BR
-        --incognito # Usar o modo anônimo
-        --window-size=800,800 # Define a resolução da janela em largura e altura
-        --headless # Roda em segundo plano(com a janela fechada)
-        --disable-notifications # Desabilita notificações
-        --disable-gpu # Desabilita renderização com GPU
+        --start-maximized                   - Inicia maximizado
+        --lang=pt-BR                        - Define o idioma de inicialização, # en-US , pt-BR
+        --incognito                         - Usar o modo anônimo
+        --window-size=800,800               - Define a resolução da janela em largura e altura
+        --headless                          - Roda em segundo plano(com a janela fechada)
+        --disable-notifications             - Desabilita notificações
+        --disable-gpu                       - Desabilita renderização com GPU
     """
 
     """ Métodos do WebDriver:
