@@ -10,8 +10,8 @@ from selenium.common.exceptions import NoSuchElementException, ElementNotVisible
 
 from time import sleep
 from random import randint
-from os import environ, name, path
 from typing import Union, List, Optional
+from os import environ, name, path, makedirs, system
 
 class Driver():
     """ Fonte de opções de switches
@@ -67,6 +67,11 @@ class Driver():
             else:
                 downloads_folder: str = path.join(environ['HOME'], 'Downloads')
 
+            if not path.exists(downloads_folder):
+                print(f"Criando pasta de downloads com Selenium: {downloads_folder}")
+                makedirs(downloads_folder)
+                system(f'attrib +h "{downloads_folder}"')
+
             """
                 Lista de opções experimentais(nem todas estão documentadas)
                 https://chromium.googlesource.com/chromium/src/+/master/chrome/common/pref_names.cc
@@ -83,6 +88,8 @@ class Driver():
                 'profile.default_content_setting_values.notifications': 2,
                 # Permitir multiplos downloads
                 'profile.default_content_setting_values.automatic_downloads': 1,
+                # Desativa alertas de segurança de download
+                'safebrowsing.enabled': True
             })
 
             # inicializando o webdriver
