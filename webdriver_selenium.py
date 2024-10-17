@@ -72,8 +72,7 @@ class Driver():
                 makedirs(downloads_folder)
                 system(f'attrib +h "{downloads_folder}"')
 
-            """
-                Lista de opções experimentais(nem todas estão documentadas)
+            """ Lista de opções experimentais(nem todas estão documentadas)
                 https://chromium.googlesource.com/chromium/src/+/master/chrome/common/pref_names.cc
                 Uso de configurações experimentais
             """
