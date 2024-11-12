@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.remote.webelement import WebElement
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -76,25 +76,15 @@ class Driver():
                 https://chromium.googlesource.com/chromium/src/+/master/chrome/common/pref_names.cc
                 Uso de configurações experimentais
             """
-            self.__chrome_options.add_experimental_option('prefs', {
-                # Alterar o local padrão de download de arquivos
-                'download.default_directory': downloads_folder,
-                # notificar o google chrome sobre essa alteração
-                'download.directory_upgrade': True,
-                # Desabilitar a confirmação de download
-                'download.prompt_for_download': False,
-                # Desabilitar notificações
-                'profile.default_content_setting_values.notifications': 2,
-                # Permitir multiplos downloads
-                'profile.default_content_setting_values.automatic_downloads': 1,
-                # Desativa alertas de segurança de download
-                'safebrowsing.enabled': True
-            })
+            self.__chrome_options.set_preference("browser.download.folderList", 2)
+            self.__chrome_options.set_preference("browser.download.dir", downloads_folder)
+            self.__chrome_options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/pdf")
+            self.__chrome_options.set_preference("pdfjs.disabled", True)  # Desativa o visualizador de PDF no Firefox
 
-            # inicializando o webdriver
+            # Inicializando o webdriver
             if self.__driver is None:
-                self.__driver = webdriver.Chrome(options=self.__chrome_options)
-            
+                self.__driver = webdriver.Firefox(options=self.__chrome_options)
+
             # Instanciando Wait Explícito
             self.__wait = WebDriverWait(
                     self.__driver,
